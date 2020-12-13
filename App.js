@@ -1,22 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext } from "react";
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React from "react";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import { AppProvider } from "./context/AppProvider.js";
-import PostListScreen from "./screens/PostListScreen.js";
+import PostNavigation from "./navigation/index.js";
 
 export default function App() {
   return (
     <AppProvider>
-      <SafeAreaView style={styles.container}>
-        <PostListScreen />
-      </SafeAreaView>
+      <View style={styles.container}>
+        <PostNavigation />
+      </View>
       <StatusBar style="auto" />
     </AppProvider>
   );
@@ -25,7 +18,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    //backgroundColor:'#edced5'
   },
   button: {
     backgroundColor: "blue",
