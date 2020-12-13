@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useContext } from "react";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { AppProvider } from "./context/AppProvider.js";
+import PostListScreen from "./screens/PostListScreen.js";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <AppProvider>
+      <SafeAreaView style={styles.container}>
+        <PostListScreen />
+      </SafeAreaView>
       <StatusBar style="auto" />
-    </View>
+    </AppProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  button: {
+    backgroundColor: "blue",
+    padding: 10,
   },
 });
