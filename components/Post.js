@@ -48,7 +48,7 @@ export default function Post({ item: { item }, navigation }) {
             style={{ paddingVertical: 10, paddingLeft: 10, paddingRight: 5 }}
             color="black"
           />
-          <Text style={{ fontWeight: "bold" }}>235</Text>
+          <Text style={{ fontWeight: "bold" }}>{item.likes}</Text>
         </View>
         <View style={{ flexDirection: "row-reverse", alignItems: "center" }}>
           <Ionicons
@@ -57,7 +57,7 @@ export default function Post({ item: { item }, navigation }) {
             style={{ paddingVertical: 10, paddingLeft: 5, paddingRight: 10 }}
             color="black"
           />
-          <Text style={{ fontWeight: "bold", color: "black" }}>312</Text>
+          <Text style={{ fontWeight: "bold", color: "black" }}>{item.reads}</Text>
         </View>
       </View>
       {item.comments.length ? <Comments comments={item.comments} /> : null}

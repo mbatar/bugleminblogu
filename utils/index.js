@@ -4,6 +4,8 @@ export const convertToArray = (obj) => {
     title: obj[key].title,
     content: obj[key].content,
     photo: obj[key].photo,
+    likes:obj[key].likes,
+    reads: obj[key].reads,
     comments: obj[key].comments
       ? Object.keys(obj[key].comments).map((childKey) => ({
           id: childKey,
@@ -15,3 +17,5 @@ export const convertToArray = (obj) => {
   console.log(arr);
   return arr;
 };
+
+

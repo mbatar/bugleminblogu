@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { AppProvider } from "./context/AppProvider.js";
-import PostNavigation from "./navigation/index.js";
+import {PostNavigation} from "./navigation/index.js";
 
 export default function App() {
   return (
