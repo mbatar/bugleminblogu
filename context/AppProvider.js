@@ -19,7 +19,26 @@ export function AppProvider({ children }) {
     };
     getPosts();
   }, []);
-
+  const login = async (user) => {
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then(() => {
+        setIsLogin(true);
+        return true;
+      })
+      .catch(() => {
+        return false;
+      });
+  };
+  const logout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setIsLogin(false);
+      });
+  };
   const createPost = (post) => {
     firebase
       .database()
@@ -60,7 +79,15 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider
-      value={{ posts: posts, handleActivePost, like, read, isLogin:isLogin }}
+      value={{
+        posts: posts,
+        handleActivePost,
+        like,
+        read,
+        isLogin: isLogin,
+        login,
+        logout,
+      }}
     >
       {children}
     </AppContext.Provider>
