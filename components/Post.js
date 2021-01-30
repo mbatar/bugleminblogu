@@ -10,11 +10,9 @@ export default function Post({ item: { item }, navigation }) {
   const [imageUrl, setImageUrl] = React.useState("");
   React.useEffect(() => {
     const getImage = async () => {
-      let url = await firebase.storage().ref(item.photo).getDownloadURL();
+      let url = await firebase.storage().ref().child(item.photo).getDownloadURL();
       setImageUrl(url);
-      console.log(url);
     };
-    console.log(item.comments.length);
     getImage();
   }, []);
   return (

@@ -14,7 +14,6 @@ export const convertToArray = (obj) => {
         }))
       : [],
   }));
-  console.log(arr);
   return arr;
 };
 

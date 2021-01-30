@@ -18,6 +18,7 @@ const AuthStack = createStackNavigator();
 const AdminTab = createBottomTabNavigator();
 
 export function AdminTabNavigation() {
+  const { handleChangeAuthTitle, user } = React.useContext(AppContext);
   return (
     <AdminTab.Navigator
       screenOptions={({ route }) => ({
@@ -49,26 +50,41 @@ export function AdminTabNavigation() {
         name="Profile"
         component={ProfileScreen}
         options={{ tabBarLabel: "Profil" }}
+        listeners={() => ({
+          tabPress: () => {
+            handleChangeAuthTitle(user.name);
+          },
+        })}
       />
       <AdminTab.Screen
         name="CreatePost"
         component={CreatePostScreen}
         options={{ tabBarLabel: "Post Oluştur" }}
+        listeners={() => ({
+          tabPress: () => {
+            handleChangeAuthTitle("Post Oluştur");
+          },
+        })}
       />
       <AdminTab.Screen
         name="EditPosts"
         component={EditPostsScreen}
         options={{ tabBarLabel: "Post Düzenle" }}
+        listeners={() => ({
+          tabPress: () => {
+            handleChangeAuthTitle("Post Düzenle");
+          },
+        })}
       />
     </AdminTab.Navigator>
   );
 }
 
 export function AuthNavigation() {
-  const { isLogin, logout } = React.useContext(AppContext);
+  const { user, logout, authScreenTitle } = React.useContext(AppContext);
   return (
     <AuthStack.Navigator>
-      {isLogin ? (
+      {user ? (
         <AuthStack.Screen
           name="Admin"
           component={AdminTabNavigation}
@@ -81,7 +97,7 @@ export function AuthNavigation() {
             headerBackTitle: "Geri",
             headerTintColor: "red",
             headerTitleStyle: { color: "#000" },
-            headerTitle: "Profil",
+            headerTitle: authScreenTitle,
             headerRight: () => (
               <Ionicons
                 name="log-out-outline"

@@ -7,7 +7,9 @@ export const AppContext = React.createContext();
 export function AppProvider({ children }) {
   const [posts, setPosts] = React.useState([]);
   const [activePost, setActivePost] = React.useState(null);
-  const [isLogin, setIsLogin] = React.useState(false);
+  const [user, setUser] = React.useState(null);
+  const [authScreenTitle, setAuthScreenTitle] = React.useState("Profil");
+
   React.useEffect(() => {
     const getPosts = () => {
       firebase
@@ -19,12 +21,21 @@ export function AppProvider({ children }) {
     };
     getPosts();
   }, []);
+
+  const handleChangeAuthTitle = (title) => {
+    setAuthScreenTitle(title);
+  };
   const login = async (user) => {
     await firebase
       .auth()
       .signInWithEmailAndPassword(user.email, user.password)
-      .then(() => {
-        setIsLogin(true);
+      .then((auth) => {
+        firebase
+          .database()
+          .ref(`/users/${auth.user.uid}`)
+          .once("value", (snap) => {
+            setUser(snap.val());
+          });
         return true;
       })
       .catch(() => {
@@ -36,7 +47,7 @@ export function AppProvider({ children }) {
       .auth()
       .signOut()
       .then(() => {
-        setIsLogin(false);
+        setUser(null);
       });
   };
   const createPost = (post) => {
@@ -84,9 +95,11 @@ export function AppProvider({ children }) {
         handleActivePost,
         like,
         read,
-        isLogin: isLogin,
+        user: user,
         login,
         logout,
+        authScreenTitle,
+        handleChangeAuthTitle,
       }}
     >
       {children}
